@@ -39,6 +39,23 @@ class Usuario {
 		$this->dtcadastro = $value;
 	}
 
+	public function setData($data){
+		$this->setIdusuario($data['idusuario']);
+		$this->setDeslogin($data['deslogin']);
+		$this->setDessenha($data['dessenha']);
+		$this->setDtcadastro(new DateTime($data['dtcadastro']));
+	}
+
+	public function insert(){
+		$sql=new Sql();
+		$results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)",array(
+							':LOGIN'=>$this->getDeslogin(),
+							':PASSWORD'=>$this->getDessenha()
+						));
+		if(count($results) > 0){
+			$this->setData($results[0]);
+		}
+	}
 
 	public static function getList(){
 		$sql=new Sql();
@@ -65,6 +82,7 @@ class Usuario {
 		$sql=new Sql();
 		return $sql->select("SELECT * FROM tb_usuarios WHERE deslogin LIKE '%".$login."%'");
 	}
+
 
 	public function login($login,$password){
 
