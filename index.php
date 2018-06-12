@@ -26,14 +26,29 @@ $usuario->login("diogo","diogo");
 echo $usuario;
 */
 
+/*
+$aluno=new Usuario('Romaria','maria');
 
-$aluno=new Usuario();
+//$aluno->setDeslogin('GuriDeUruguaiana');
+//$aluno->setDessenha('bagual');
 
-$aluno->setDeslogin('Aluno');
-$aluno->setDessenha('olamundo');
+ $aluno->insert();
 
-$aluno->insert();
+echo $aluno;*/
 
-echo $aluno;
+
+//UDAPTE
+/*$aluno=new Usuario();
+$aluno->loadById(8);
+
+// echo $aluno."<BR><BR>";
+
+$aluno->update("professor","senhadoprofessor");
+
+
+echo $aluno;*/
+
+
+
 
  ?>

@@ -57,6 +57,20 @@ class Usuario {
 		}
 	}
 
+	public function update($login,$pass){
+
+		$this->setDeslogin($login);
+		$this->setDessenha($pass);
+
+		$sql=new Sql();
+
+		$sql->query("UPDATE tb_usuarios SET deslogin= :LOGIN, dessenha=:PASSWORD WHERE idusuario=:ID;",array(
+									':LOGIN'=>$this->getDeslogin(),
+									':PASSWORD'=>$this->getDessenha(),
+									':ID'=>$this->getIdusuario()
+								));
+	}
+
 	public static function getList(){
 		$sql=new Sql();
 
@@ -69,12 +83,10 @@ class Usuario {
 			);
 
 		if(count($results)>0){
-			$row=$results[0];
+			echo "SIMMMMM";
+			$this->setData($results[0]);
 
-			$this->setIdusuario($row['idusuario']);
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			echo $this."<br>";
 		}
 	}
 
@@ -96,12 +108,7 @@ class Usuario {
 			);
 
 		if(count($results)>0){
-			$row=$results[0];
-
-			$this->setIdusuario($row['idusuario']);
-			$this->setDeslogin($row['deslogin']);
-			$this->setDessenha($row['dessenha']);
-			$this->setDtcadastro(new DateTime($row['dtcadastro']));
+			$this->setData($results[0]);
 		}else{
 			echo "<p>NÂO DEU</p>";
 		}
@@ -116,6 +123,13 @@ class Usuario {
 				"dtCadastro"=>$this->getDtcadastro()->format("d/m/Y H:i:s")
 			));
 	}
+
+
+	public function __construct($login="",$password=""){
+		$this->setDeslogin($login);
+		$this->setDessenha($password);
+	}
+
 }
 
  ?>
